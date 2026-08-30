@@ -1,0 +1,3 @@
+https://github.com/MaJerle/stm32f429
+https://github.com/mikelzc1990/nsganetv2
+https://github.com/XanaduAI/strawberryfields

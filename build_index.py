@@ -20,6 +20,7 @@ Yeni kitap eklediginde tum indeksi yeniden olusturmak icin tekrar calistir.
 
 import glob
 import os
+import shutil
 import sys
 import uuid
 
@@ -67,6 +68,16 @@ def main():
 
     # 3) Qdrant'a yaz (yerel/gomulu mod - sunucu/Docker gerekmez).
     print(f"\nQdrant'a (yerel: {QDRANT_LOCAL_PATH}) yaziliyor...")
+    # ONEMLI: client.delete_collection() yerel (embedded) Qdrant modunda
+    # gozlemlendi ki diskteki veriyi guvenilir sekilde silmiyor - eski
+    # calistirmadan kalan noktalar yeni calistirmayla birlesip cift sayima
+    # yol aciyor (5507 eski + 7410 yeni = 12917 seklinde tespit edildi).
+    # Bu yuzden koleksiyon klasorunu fiziksel olarak siliyoruz, delete_collection
+    # cagrisini da (varsa baska bir etkisi icin) yedek olarak birakiyoruz.
+    collection_dir = os.path.join(QDRANT_LOCAL_PATH, "collection", COLLECTION_NAME)
+    if os.path.isdir(collection_dir):
+        shutil.rmtree(collection_dir)
+
     client = QdrantClient(path=QDRANT_LOCAL_PATH)
 
     if client.collection_exists(COLLECTION_NAME):

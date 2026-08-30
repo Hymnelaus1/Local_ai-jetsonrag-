@@ -22,6 +22,13 @@ QDRANT_LOCAL_PATH = os.path.join(BASE_DIR, "qdrant_local")
 
 COLLECTION_NAME = "kitaplar"
 
+# GitHub repolari, kitaplardan AYRI bir koleksiyonda tutuluyor: kod ve duz
+# akademik metin farkli retrieval semantigine sahip (kod sorgusu genelde
+# "bu fonksiyon ne yapiyor" gibi, kitap sorgusu "bu kavram nedir" gibi) -
+# karistirmak retrieval kalitesini dusurur.
+REPOS_DIR = os.path.join(BASE_DIR, "data", "repos")
+COLLECTION_NAME_CODE = "kod_repolari"
+
 # Coklu dil (TR dahil) destegi iyi olan, 8GB VRAM'e rahat sigan embedding modeli.
 # Jetson Orin Nano Super uzerinde de ayni model calistirilacak (tutarlilik icin).
 EMBED_MODEL = "BAAI/bge-m3"

@@ -11,9 +11,15 @@ venv/
 # kendi baslatir.
 data/pdfs/*.pdf
 data/markdown/*.md
+data/excluded/*.pdf
+data/excluded/*.md
 
 # Yerel vektor veritabani (buyuk, tekrar uretilebilir - build_index.py ile)
 qdrant_local/
+
+# Klonlanan GitHub repolari - kendi lisanslariyla ayri projeler, buraya
+# kopyalanmiyor. repos.txt'deki URL'lerden herkes kendi klonunu cekebilir.
+data/repos/*/
 
 # Eval seti, kitaplardan dogrudan alinti (chunk_preview) icerdigi icin
 # telif nedeniyle repoya eklenmiyor - generate_eval_set.py ile herkes kendi
