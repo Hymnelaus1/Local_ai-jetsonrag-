@@ -85,10 +85,13 @@ python query.py "sorunu buraya yaz"   # retrieval testi
       MRR 0.473 -> **0.662**. `query.py` varsayilan olarak reranker kullanir.
       Kalan kayiplar cogunlukla kitaplardaki "8.66 numarali soru" tarzi
       alistirma referanslari - chunk'lama stratejisi icin ayri bir konu.
-- [ ] **Faz 5 — Generation**: Ollama + Qwen3-4B-Instruct entegrasyonu,
-      kaynak alintili prompt template, "baglamda yoksa bilmiyorum de"
-      davranisi. GitHub repolarinin da pipeline'a eklenmesi (kod icin
-      ayri chunking/embedding stratejisi).
+- [x] **Faz 5 — Generation**: `ask.py` ile uctan uca RAG calisiyor.
+      Model: `qwen3:4b-instruct` (Ollama) - qwen3:4b'nin thinking/reasoning
+      varyanti DEGIL (bkz. config.py'deki not: thinking varyanti basit bir
+      soruda bile 45-60 saniye suruyordu, instruct varyanti ~4 saniye).
+      Iki davranis dogrulandi: (1) kaynak alintili, baglama sadik cevap
+      (2) baglamda olmayan soruda uydurmuyor, "bu bilgi kaynaklarimda yok"
+      diyor. GitHub repolarinin pipeline'a eklenmesi henuz yapilmadi.
 - [ ] **Faz 6 — Jetson deploy**: Qdrant snapshot + GGUF model Jetson'a
       tasima, llama.cpp CUDA backend, latency olcumu
 - [ ] **Faz 7 — Fine-tuning (opsiyonel)**: Once embedding fine-tune
