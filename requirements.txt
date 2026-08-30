@@ -1,0 +1,13 @@
+# Not: torch icin CUDA destekli surumu su komutla kur (bu dosyadaki pip install
+# komutu CPU-only surumu getirir):
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+#
+# Diger tum kutuphaneler icin:
+#   pip install -r requirements.txt
+
+torch==2.5.1
+pymupdf4llm==1.28.2
+sentence-transformers==6.0.0
+qdrant-client==1.19.0
+FlagEmbedding==1.4.2
+ollama==0.6.2

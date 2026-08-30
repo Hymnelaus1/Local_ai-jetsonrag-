@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+rag-env/
+venv/
+
+# Telifli kaynaklar - kitap PDF'leri ve bunlardan cikarilan metinler repoya
+# ASLA eklenmez. Herkes kendi PDF'lerini data/pdfs/ altina koyup pipeline'i
+# kendi baslatir.
+data/pdfs/*.pdf
+data/markdown/*.md
+
+# Yerel vektor veritabani (buyuk, tekrar uretilebilir - build_index.py ile)
+qdrant_local/
+
+# Claude Code / editor artifacts
+.claude/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Ortam/sirlar
+.env
