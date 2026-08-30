@@ -1,11 +1,12 @@
 # Not: torch icin CUDA destekli surumu su komutla kur (bu dosyadaki pip install
-# komutu CPU-only surumu getirir):
-#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+# komutu CPU-only surumu getirir). >=2.6 sart - transformers kutuphanesi guvenlik
+# geregi (CVE-2025-32434) torch.load icin bu surumu zorunlu kiliyor:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
 #
 # Diger tum kutuphaneler icin:
 #   pip install -r requirements.txt
 
-torch==2.5.1
+torch==2.6.0
 pymupdf4llm==1.28.2
 sentence-transformers==6.0.0
 qdrant-client==1.19.0

@@ -12,6 +12,8 @@ Kullanim:
 
 import sys
 
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 

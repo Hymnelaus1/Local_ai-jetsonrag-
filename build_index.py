@@ -20,7 +20,12 @@ Yeni kitap eklediginde tum indeksi yeniden olusturmak icin tekrar calistir.
 
 import glob
 import os
+import sys
 import uuid
+
+# Windows konsolunun cp1252 kod sayfasi bazi Unicode karakterleri yazdiramadigi
+# icin stdout'u UTF-8'e zorluyoruz (convert_pdfs.py'deki ile ayni sebep).
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient

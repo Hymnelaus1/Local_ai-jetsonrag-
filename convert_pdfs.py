@@ -14,10 +14,16 @@ Kullanim:
 """
 
 import os
+import sys
 import glob
 import pymupdf4llm
 
 from config import PDF_SOURCE_DIR, MD_OUTPUT_DIR
+
+# Windows konsolunun varsayilan kod sayfasi (cp1252) PDF'lerden gelen bazi
+# Unicode karakterleri (ozel tirnaklar, aksanli harfler vb.) yazdiramiyor.
+# stdout'u UTF-8'e zorlayip yazdirilamayan karakterleri sessizce degistiriyoruz.
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 
 def main():
