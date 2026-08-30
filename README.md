@@ -76,13 +76,15 @@ python query.py "sorunu buraya yaz"   # retrieval testi
 - [x] **Faz 1 — Ingest pipeline**: PDF -> markdown -> baslik-farkinda chunking
 - [ ] **Faz 2 — Indeksleme**: Tum kitaplari embed edip Qdrant'a yaz, elle
       sorgula, chunk boyutunu/overlap'i kalibre et
-- [ ] **Faz 3 — Eval seti**: Her kitaptan 4-5 soru-cevap cifti (kendi
-      chunk'larindan LLM ile otomatik uretilebilir), Recall@10/MRR olc.
-      Bu faz atlanmadan sonraki adimlara gecilmemeli - kor iyilestirme
-      yaniltici sonuc verir.
-- [ ] **Faz 4 — Retrieval iyilestirme**: Hybrid search (dense+BM25),
-      reranker (bge-reranker-v2-m3), chunk boyutu denemeleri - her
-      degisiklik Faz 3'teki skorla olculur
+- [x] **Faz 3 — Eval seti**: `generate_eval_set.py` ile 60 soru-chunk cifti
+      uretildi (1'i anormal uretim oldugu icin elendi, 59 kaldi).
+      Baseline: Recall@5 %64.4, Recall@10 %71.2, MRR 0.473.
+- [x] **Faz 4 — Retrieval iyilestirme**: `reranker.py` (bge-reranker-v2-m3)
+      eklendi - iki asamali retrieval (embedding top-30 -> rerank top-5).
+      Sonuc: Recall@5 %64.4 -> **%81.4**, Recall@10 %71.2 -> **%84.7**,
+      MRR 0.473 -> **0.662**. `query.py` varsayilan olarak reranker kullanir.
+      Kalan kayiplar cogunlukla kitaplardaki "8.66 numarali soru" tarzi
+      alistirma referanslari - chunk'lama stratejisi icin ayri bir konu.
 - [ ] **Faz 5 — Generation**: Ollama + Qwen3-4B-Instruct entegrasyonu,
       kaynak alintili prompt template, "baglamda yoksa bilmiyorum de"
       davranisi. GitHub repolarinin da pipeline'a eklenmesi (kod icin
