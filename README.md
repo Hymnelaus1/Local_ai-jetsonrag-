@@ -175,6 +175,9 @@ python build_index.py
 # Yeni repo eklediginde (data/repos/<ad> klasorune klonladiktan sonra):
 python build_code_index.py
 
+# Kod repolarini sorgulamak icin (kitaplardan AYRI koleksiyon, LLM'siz retrieval):
+python query_code.py "NSGA-II crossover implementation"
+
 # Retrieval kalitesini olcmek icin (eval seti yoksa once uret):
 python generate_eval_set.py --n 60
 python evaluate_retrieval.py --rerank
@@ -222,6 +225,27 @@ python evaluate_retrieval.py --rerank
 
 ---
 
+## Test sonuclari ve bilinen sinirlama (kod retrieval)
+
+Uctan uca dogrulama testleri (kitap + kod koleksiyonlari):
+
+| Test | Kaynak | Sonuc |
+|---|---|---|
+| FreeRTOS task oncelik ayari | Kitap koleksiyonu | Basarili - dogru API (`vTaskPrioritySet()`), kaynak gosterdi |
+| NSGA-II non-dominated sorting | Kitap koleksiyonu (MOEA-D paper) | Basarili - Pareto cephesi, crowding distance dogru anlatildi |
+| Attention mechanism / Transformers | Kod koleksiyonu (d2l-en) | Basarili - skor 0.96-0.98, tam dogru bolumler |
+| NSGA-II crossover/mutation implementasyonu | Kod koleksiyonu (nsganetv2) | **Zayif** - skor 0.004-0.024 |
+
+**Bilinen sinirlama**: `nsganetv2` reposu crossover/mutation'i kendi
+kodlamiyor, `pymoo` kutuphanesinden hazir fonksiyon cagiriyor
+(`get_crossover("int_two_point")`, `get_mutation("int_pm")`). Kodun
+kendisi kavrami aciklamiyor, sadece bir kutuphane cagrisi - embedding'in
+eslesecek anlamsal zenginligi yok. Bu bir bug degil, satir-penceresi
+chunking'in duzyazi-agirlikli icerige (d2l-en gibi) karsi seyrek/kutuphane-
+devirmeli ham kod uzerindeki dogal siniri. Ileride iyilestirme fikri:
+fonksiyonlara LLM ile kisa aciklama ekleyip embedding'e onu da katmak
+("contextual retrieval" yaklasimi) - henuz yapilmadi.
+
 ## Bilgi kaynaklari (15 kitap/paper + 4 repo)
 
 **Kitaplar/Paperlar** (`data/pdfs/`):
@@ -264,8 +288,9 @@ locproject/
   build_index.py           -> kitap indeksi olustur (koleksiyon: kitaplar)
   build_code_index.py       -> kod indeksi olustur (koleksiyon: kod_repolari)
   reranker.py              -> bge-reranker-v2-m3 sarmalayicisi
-  query.py                 -> retrieval (CLI + retrieve() fonksiyonu)
-  ask.py                   -> uctan uca RAG (retrieval + LLM cevap)
+  query.py                 -> kitap retrieval (CLI + retrieve() fonksiyonu)
+  query_code.py             -> kod repolari retrieval (CLI)
+  ask.py                   -> uctan uca RAG (kitap retrieval + LLM cevap)
   generate_eval_set.py      -> LLM ile otomatik soru-chunk seti uretimi
   evaluate_retrieval.py     -> Recall@5/10, MRR olcumu
   eval_set.json             -> uretilen eval seti (telif nedeniyle git'te yok)
