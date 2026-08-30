@@ -15,6 +15,11 @@ data/markdown/*.md
 # Yerel vektor veritabani (buyuk, tekrar uretilebilir - build_index.py ile)
 qdrant_local/
 
+# Eval seti, kitaplardan dogrudan alinti (chunk_preview) icerdigi icin
+# telif nedeniyle repoya eklenmiyor - generate_eval_set.py ile herkes kendi
+# PDF'lerinden kendi eval setini uretebilir.
+eval_set.json
+
 # Claude Code / editor artifacts
 .claude/
 .vscode/

@@ -25,3 +25,11 @@ COLLECTION_NAME = "kitaplar"
 # Coklu dil (TR dahil) destegi iyi olan, 8GB VRAM'e rahat sigan embedding modeli.
 # Jetson Orin Nano Super uzerinde de ayni model calistirilacak (tutarlilik icin).
 EMBED_MODEL = "BAAI/bge-m3"
+
+# Ollama uzerinden calisan uretim (generation) modeli.
+# ONEMLI: "qwen3:4b" (thinking/reasoning varyanti) DEGIL, "qwen3:4b-instruct"
+# kullaniyoruz. qwen3:4b, basit bir soru icin bile ~1000-2500 token'lik
+# gizli "dusunme" zinciri uretiyor (8GB laptop GPU'da 45-60 saniye/istek).
+# qwen3:4b-instruct thinking yapmiyor, ayni model ailesi, ~4 saniyede cevap
+# veriyor. Acik kaynak, tamamen yerel calisiyor - kota/ucret yok.
+GEN_MODEL = "qwen3:4b-instruct"
